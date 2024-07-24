@@ -1,0 +1,94 @@
+body{
+    background-color: #1e1e1e;
+}
+
+#team-box{
+    width: 1200px;
+    height: 700px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.pokemon-box{
+    width: 400px;
+    height: 300px;
+}
+
+#member-one{
+    background-color: green;
+}
+
+#member-two{
+    background-color: yellow;
+}
+
+#member-three{
+    background-color: red;
+}
+
+#member-four{
+    background-color: purple;
+}
+
+#member-five{
+    background-color:blue;
+}
+
+#member-six{
+    background-color: pink;
+}
+
+#options{
+    width: 100%;
+    height: 100px;
+    background-color: orange;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.member-img{
+    width: 200px;
+    height: 200px;
+    background-color: white;
+    margin: 30px auto 10px;
+}
+
+.pokemon-name{
+    width: 200px;
+    height: 50px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.options-boxes{
+    width: 400px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#starter-pokemon{
+    background-color: palegreen;
+}
+
+#generate-box{
+    background-color: tan;
+}
+
+#legendary-box{
+    background-color: lightblue;
+}
+
+
+
+
+
+
