@@ -1,5 +1,52 @@
+@font-face{
+    font-family: Playwright;
+    src: url(../fonts/PlaywriteNZ-VariableFont_wght.ttf);
+}
+
 body{
     background-color: #1e1e1e;
+    margin: 0;
+}
+
+.main-header{
+    width: 100%;
+    height: 60px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+}
+
+.pokemon-logo{
+    width: fit-content;
+    height: 100%;
+    padding-left: 60px;
+    display: flex;
+}
+
+.pokemon-logo img{
+    height: 50px;
+    align-self: center;
+}
+
+.navbar ul{
+    list-style: none;
+}
+
+.navbar ul li{
+    display: inline-block;
+    padding: 0px 20px;
+}
+
+.navbar ul li a{
+    transition: all 0.3s ease 0s;
+    text-decoration: none;
+    font-family: Playwright;
+    color: black;
+}
+
+.navbar ul li a:hover{
+    color: #c13584;
 }
 
 #team-box{
@@ -13,7 +60,6 @@ body{
     flex-wrap: wrap;
 }
 
-
 .pokemon-box{
     width: 400px;
     height: 300px;
@@ -21,6 +67,7 @@ body{
 
 #member-one{
     background-color: green;
+
 }
 
 #member-two{
@@ -56,6 +103,11 @@ body{
     height: 200px;
     background-color: white;
     margin: 30px auto 10px;
+}
+
+.member-img img{
+    width: 200px;
+    height: 200px;
 }
 
 .pokemon-name{
