@@ -30,7 +30,7 @@ async function fetchPokedex(){
     }
 }
 
-async function fetchPokemon(url){
+async function fetchResource(url){
     try{
         const response = await fetch(url);
 
@@ -76,9 +76,10 @@ async function generateTeam(){
 
 async function noStarterNoLegendary(pokedex){
     let randomNum;
+    let pokemon;
     do{
         randomNum = getRandomNumber(9, 150);
-        pokemon = await fetchPokemon(pokedex.pokemon_entries[randomNum].pokemon_species.url)
+        pokemon = await fetchResource(pokedex.pokemon_entries[randomNum].pokemon_species.url);
     }while(pokemon.is_legendary || pokemon.is_mythical)
     // console.log(pokemon.name);
     // nameOne.innerHTML = capitalizeFirstLetter(pokemon.name);
@@ -103,7 +104,7 @@ async function randomStarter(pokedex){
 async function selectedStarter(pokedex, num){
     //console.log(pokedex.pokemon_entries[num].pokemon_species.name);
     //console.log(pokedex.pokemon_entries[num].pokemon_species.url);
-    pokemon = await fetchPokemon(pokedex.pokemon_entries[num].pokemon_species.url);
+    pokemon = await fetchResource(pokedex.pokemon_entries[num].pokemon_species.url);
     console.log(pokemon);
 }
 
