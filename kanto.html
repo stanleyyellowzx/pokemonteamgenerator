@@ -29,53 +29,56 @@
 
     <div id="team-box">
         <div class="pokemon-box" id="member-one">
-            <div class="member-img"><img src="assets/pikachu.png" alt=""></div>
-            <div class="pokemon-name">Placeholder Name</div>
+            <div class="member-img" id="img-one"><img src="assets/pikachu.png" alt=""></div>
+            <div class="pokemon-name" id="name-one">Placeholder Name</div>
         </div>
         <div class="pokemon-box" id="member-two">
-            <div class="member-img"><img src="assets/venusaur.png" alt=""></div>
-            <div class="pokemon-name">Placeholder Name</div>
+            <div class="member-img" id="img-two"><img src="assets/venusaur.png" alt=""></div>
+            <div class="pokemon-name" id="name-two">Placeholder Name</div>
         </div>
         <div class="pokemon-box" id="member-three">
-            <div class="member-img"><img src="assets/charizard.png" alt=""></div>
-            <div class="pokemon-name">Placeholder Name</div>
+            <div class="member-img" id="img-three"><img src="assets/charizard.png" alt=""></div>
+            <div class="pokemon-name" id="name-three">Placeholder Name</div>
         </div>
         <div class="pokemon-box" id="member-four">
-            <div class="member-img"><img src="assets/blastoise.png" alt=""></div>
-            <div class="pokemon-name">Placeholder Name</div>
+            <div class="member-img" id="img-four"><img src="assets/blastoise.png" alt=""></div>
+            <div class="pokemon-name" id="name-four">Placeholder Name</div>
         </div>
         <div class="pokemon-box" id="member-five">
-            <div class="member-img"><img src="assets/lapras.png" alt=""></div>
-            <div class="pokemon-name">Placeholder Name</div>
+            <div class="member-img" id="img-five"><img src="assets/lapras.png" alt=""></div>
+            <div class="pokemon-name" id="name-five">Placeholder Name</div>
         </div>
         <div class="pokemon-box" id="member-six">
-            <div class="member-img"><img src="assets/snorlax.png" alt=""></div>
-            <div class="pokemon-name">Placeholder Name</div>
+            <div class="member-img" id="img-six"><img src="assets/snorlax.png" alt=""></div>
+            <div class="pokemon-name" id="name-six">Placeholder Name</div>
         </div>
         <div id="options">
             <form action="">
                 <div class="options-boxes" id="starter-pokemon">
                     Starter Pokemon:
-                    <select name="" id="" placeholder="Select Starter Pokemon">
-                    <option value="-1">None</option>
-                    <option value="0">Bulbasaur</option>
-                    <option value="3">Charmander</option>
-                    <option value="6">Squirtle</option>
+                    <select name="" id="starter-select" placeholder="Select Starter Pokemon">
+                        <option value="-1">None</option>
+                        <option value="-2">Random</option>
+                        <option value="0">Bulbasaur</option>
+                        <option value="3">Charmander</option>
+                        <option value="6">Squirtle</option>
                     </select>
                 </div>
             </form>
             <form>
                 <div class="options-boxes" id="generate-box">
-                    <button id="generate-button" type="submit">GENERATE TEAM</button>
+                    <button id="generate-button" type="button" onclick="generateTeam()">GENERATE TEAM</button>
                 </div>
             </form>
             <form>
                 <div class="options-boxes" id="legendary-box">
                     <input type="checkbox" id="include-legendaries" name="include-legendaries" value="legendary">
-                    <label for="include-legendaries">Include Legendaries</label>
+                    <label for="include-legendaries">Include Legendaries/Mythicals</label>
                 </div>
             </form>
         </div>
     </div>
+
+    <script src="js/main.js"></script>
 </body>
 </html>

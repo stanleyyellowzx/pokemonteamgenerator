@@ -22,5 +22,5 @@ async function fetchData(){
 async function testFunction(){
 
     const pokedex = await fetchData();
-    console.log(pokedex.pokemon_entries);
+    //console.log(pokedex.pokemon_entries);
 }
