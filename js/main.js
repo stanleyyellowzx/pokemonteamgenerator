@@ -80,7 +80,8 @@ async function noStarterNoLegendary(pokedex){
         randomNum = getRandomNumber(9, 150);
         pokemon = await fetchPokemon(pokedex.pokemon_entries[randomNum].pokemon_species.url)
     }while(pokemon.is_legendary || pokemon.is_mythical)
-    console.log(pokemon.name);
+    // console.log(pokemon.name);
+    // nameOne.innerHTML = capitalizeFirstLetter(pokemon.name);
 }
 
 async function noStarter(pokedex){
@@ -108,5 +109,9 @@ async function selectedStarter(pokedex, num){
 
 function getRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
