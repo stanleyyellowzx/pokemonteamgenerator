@@ -1,17 +1,15 @@
+const pokemonTypeUrl = "https://pokeapi.co/api/v2/pokemon/";
 const starterPokemon = document.querySelector("#starter-select");
 const legendaryPokemon = document.querySelector("#include-legendaries");
-const nameOne = document.querySelector("#name-one");
-const nameTwo = document.querySelector("#name-two");
-const nameThree = document.querySelector("#name-three");
-const nameFour = document.querySelector("#name-four");
-const nameFive = document.querySelector("#name-five");
-const nameSix = document.querySelector("#name-six");
-const imageOne = document.querySelector("#img-one");
-const imageTwo = document.querySelector("#img-two");
-const imageThree = document.querySelector("#img-three");
-const imageFour = document.querySelector("#img-four");
-const imageFive = document.querySelector("#img-five");
-const imageSix = document.querySelector("#img-six");
+const pokemonContainer = document.querySelector("#pokemon-container");
+const numToString = {
+    0 : "one",
+    1 : "two",
+    2 : "three",
+    3 : "four",
+    4 : "five",
+    5 : "six"
+};
 
 
 async function fetchPokedex(){
@@ -76,13 +74,21 @@ async function generateTeam(){
 
 async function noStarterNoLegendary(pokedex){
     let randomNum;
-    let pokemon;
-    do{
-        randomNum = getRandomNumber(9, 150);
-        pokemon = await fetchResource(pokedex.pokemon_entries[randomNum].pokemon_species.url);
-    }while(pokemon.is_legendary || pokemon.is_mythical)
-    // console.log(pokemon.name);
-    // nameOne.innerHTML = capitalizeFirstLetter(pokemon.name);
+    let pokemonSpecies;
+    let pokemon = [];
+    let nameTag;
+    let imageTag;
+    for (let i = 0; i < 6; i++){
+        nameTag = document.querySelector("#name-" + numToString[i]);
+        imageTag = document.querySelector("#img-" + numToString[i]);
+        do{
+            randomNum = getRandomNumber(9, 150);
+            pokemonSpecies = await fetchResource(pokedex.pokemon_entries[randomNum].pokemon_species.url);
+        }while(pokemonSpecies.is_legendary || pokemonSpecies.is_mythical)
+        pokemon.push(await fetchResource(pokemonTypeUrl + pokemonSpecies.name + "/"));
+    }
+    
+    injectHTML(pokemon);
 }
 
 async function noStarter(pokedex){
@@ -116,3 +122,29 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+function injectHTML(pokemon){
+    pokemonContainer.innerHTML = `<div class="pokemon-box" id="member-one">
+                <div class="member-img"><img src= ${pokemon[0].sprites.front_default} alt="" id="img-one"></div>
+                <div class="pokemon-name" id="name-one">${capitalizeFirstLetter(pokemon[0].name)}</div>
+            </div>
+            <div class="pokemon-box" id="member-two">
+                <div class="member-img"><img src=${pokemon[1].sprites.front_default} alt="" id="img-two"></div>
+                <div class="pokemon-name" id="name-two">${capitalizeFirstLetter(pokemon[1].name)}</div>
+            </div>
+            <div class="pokemon-box" id="member-three">
+                <div class="member-img"><img src=${pokemon[2].sprites.front_default} alt="" id="img-three"></div>
+                <div class="pokemon-name" id="name-three">${capitalizeFirstLetter(pokemon[2].name)}</div>
+            </div>
+            <div class="pokemon-box" id="member-four">
+                <div class="member-img"><img src=${pokemon[3].sprites.front_default} alt="" id="img-four"></div>
+                <div class="pokemon-name" id="name-four">${capitalizeFirstLetter(pokemon[3].name)}</div>
+            </div>
+            <div class="pokemon-box" id="member-five">
+                <div class="member-img"><img src=${pokemon[4].sprites.front_default} alt="" id="img-five"></div>
+                <div class="pokemon-name" id="name-five">${capitalizeFirstLetter(pokemon[4].name)}</div>
+            </div>
+            <div class="pokemon-box" id="member-six">
+                <div class="member-img"><img src=${pokemon[5].sprites.front_default} alt="" id="img-six"></div>
+                <div class="pokemon-name" id="name-six">${capitalizeFirstLetter(pokemon[5].name)}</div>
+            </div>`
+}
