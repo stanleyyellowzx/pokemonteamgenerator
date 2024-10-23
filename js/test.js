@@ -13,3 +13,4 @@ console.log(numToString[3]);
 console.log(numToString[4]);
 console.log(numToString[5]);
 console.log(numToString[6]);
+console.log(typeof(numToString));

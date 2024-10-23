@@ -10,7 +10,16 @@ const numToString = {
     4 : "five",
     5 : "six"
 };
+let pokedex;
 
+async function assignPokedex(){
+    let tempPokedex;
+    do{
+        tempPokedex = await fetchPokedex();
+    }while (tempPokedex === undefined);
+    
+    pokedex = tempPokedex;
+}
 
 async function fetchPokedex(){
     try{
@@ -24,7 +33,7 @@ async function fetchPokedex(){
         return data;
     }
     catch(error){
-        console.log(error);
+        console.error(error);
     }
 }
 
@@ -40,49 +49,48 @@ async function fetchResource(url){
         return data;
     }
     catch(error){
-        console.log(error);
+        console.error(error);
     }
 }
-
 
 async function generateTeam(){
-    const pokedex = await fetchPokedex();
-    let starterValue = starterPokemon.value;
+    let starterValue = Number(starterPokemon.value);
     let legendaryValue = legendaryPokemon.checked;
-
-    if (starterValue == -1 && !legendaryValue){
-        noStarterNoLegendary(pokedex);
+    
+    if (starterValue === -1 && !legendaryValue){
+        console.log("NO STARTER NO LEGENDARY");
+        noStarterNoLegendary();
     }
-    else if (starterValue == -1 && legendaryValue){
-        noStarter(pokedex);
+    else if (starterValue === -1 && legendaryValue){
+        console.log("NO STARTER YES LEGENDARY")
+        noStarter();
     }
-    else if (starterValue == -2 && legendaryValue){
-        randomStarter(pokedex);
+    else if (starterValue === -2 && legendaryValue){
+        console.log("RANDOM STARTER YES LEGENDARY");
+        randomStarter();
     }
-    else if (starterValue == -2 && !legendaryValue){
-        randomStarterNoLegendary(pokedex);
+    else if (starterValue === -2 && !legendaryValue){
+        console.log("RANDOM STARTER NO LEGENDARY");
+        randomStarterNoLegendary();
     }
-    else if (legendaryValue){
-        noLegendary(pokedex);
+    else if (!legendaryValue){
+        console.log("selected starter no legendary");
+        selectedStarterNoLegendary(starterValue);
     }
     else{
-        selectedStarter(pokedex, starterValue);
+        console.log("SELECTED STARTER YES LEGENDARY");
+        selectedStarter(starterValue);
     }
-
-
 }
 
-async function noStarterNoLegendary(pokedex){
+async function noStarterNoLegendary(){
+    if (!checkPokedex()) return;
     let randomNum;
     let pokemonSpecies;
     let pokemon = [];
-    let nameTag;
-    let imageTag;
     for (let i = 0; i < 6; i++){
-        nameTag = document.querySelector("#name-" + numToString[i]);
-        imageTag = document.querySelector("#img-" + numToString[i]);
         do{
-            randomNum = getRandomNumber(9, 150);
+            randomNum = getRandomNumber(9, pokedex.pokemon_entries.length - 1);
             pokemonSpecies = await fetchResource(pokedex.pokemon_entries[randomNum].pokemon_species.url);
         }while(pokemonSpecies.is_legendary || pokemonSpecies.is_mythical)
         pokemon.push(await fetchResource(pokemonTypeUrl + pokemonSpecies.name + "/"));
@@ -91,27 +99,89 @@ async function noStarterNoLegendary(pokedex){
     injectHTML(pokemon);
 }
 
-async function noStarter(pokedex){
-
-}
-
-async function noLegendary(pokedex){
+async function noStarter(){
+    if (!checkPokedex()) return;
+    let randomNum;
+    let pokemonSpecies;
+    let pokemon = [];
+    for (let i = 0; i < 6; i++){
+        randomNum = getRandomNumber(9, pokedex.pokemon_entries.length - 1);
+        pokemonSpecies = await fetchResource(pokedex.pokemon_entries[randomNum].pokemon_species.url);
+        pokemon.push(await fetchResource(pokemonTypeUrl + pokemonSpecies.name + "/"));
+    }
     
+    injectHTML(pokemon);
 }
 
-async function randomStarterNoLegendary(pokedex){
-    
+async function selectedStarterNoLegendary(num){
+    if (!checkPokedex()) return;
+    let randomNum;
+    let pokemonSpecies;
+    let pokemon = [];
+    pokemonSpecies = await fetchResource(pokedex.pokemon_entries[num].pokemon_species.url);
+    pokemon.push(await fetchResource(pokemonTypeUrl + pokemonSpecies.name + "/"));
+    for (let i = 1; i < 6; i++){
+        do{
+            randomNum = getRandomNumber(9, pokedex.pokemon_entries.length - 1);
+            pokemonSpecies = await fetchResource(pokedex.pokemon_entries[randomNum].pokemon_species.url);
+        }while(pokemonSpecies.is_legendary || pokemonSpecies.is_mythical)
+        pokemon.push(await fetchResource(pokemonTypeUrl + pokemonSpecies.name + "/"));
+    }
+
+    injectHTML(pokemon);
 }
 
-async function randomStarter(pokedex){
+async function randomStarterNoLegendary(){
+    if (!checkPokedex()) return;
+    let randomNum;
+    let pokemonSpecies;
+    let pokemon = [];
+    randomNum = getRandomNumber(0, 8);
+    pokemonSpecies = await fetchResource(pokedex.pokemon_entries[randomNum].pokemon_species.url);
+    pokemon.push(await fetchResource(pokemonTypeUrl + pokemonSpecies.name + "/"));
+    for (let i = 1; i < 6; i++){
+        do{
+            randomNum = getRandomNumber(9, pokedex.pokemon_entries.length - 1);
+            pokemonSpecies = await fetchResource(pokedex.pokemon_entries[randomNum].pokemon_species.url);
+        }while(pokemonSpecies.is_legendary || pokemonSpecies.is_mythical)
+        pokemon.push(await fetchResource(pokemonTypeUrl + pokemonSpecies.name + "/"));
+    }
+
+    injectHTML(pokemon);
+}
+
+async function randomStarter(){
+    if (!checkPokedex()) return;
+    let randomNum;
+    let pokemonSpecies;
+    let pokemon = [];
+    randomNum = getRandomNumber(0, 8);
+    pokemonSpecies = await fetchResource(pokedex.pokemon_entries[randomNum].pokemon_species.url);
+    pokemon.push(await fetchResource(pokemonTypeUrl + pokemonSpecies.name + "/"));
+    for (let i = 1; i < 6; i++){
+        randomNum = getRandomNumber(9, pokedex.pokemon_entries.length - 1);
+        pokemonSpecies = await fetchResource(pokedex.pokemon_entries[randomNum].pokemon_species.url);
+        pokemon.push(await fetchResource(pokemonTypeUrl + pokemonSpecies.name + "/"));
+    }
+
+    injectHTML(pokemon);
 
 }
 
-async function selectedStarter(pokedex, num){
-    //console.log(pokedex.pokemon_entries[num].pokemon_species.name);
-    //console.log(pokedex.pokemon_entries[num].pokemon_species.url);
-    pokemon = await fetchResource(pokedex.pokemon_entries[num].pokemon_species.url);
-    console.log(pokemon);
+async function selectedStarter(num){
+    if (!checkPokedex()) return;
+    let randomNum;
+    let pokemonSpecies;
+    let pokemon = [];
+    pokemonSpecies = await fetchResource(pokedex.pokemon_entries[num].pokemon_species.url);
+    pokemon.push(await fetchResource(pokemonTypeUrl + pokemonSpecies.name + "/"));
+    for (let i = 1; i < 6; i++){
+        randomNum = getRandomNumber(9, pokedex.pokemon_entries.length - 1);
+        pokemonSpecies = await fetchResource(pokedex.pokemon_entries[randomNum].pokemon_species.url);
+        pokemon.push(await fetchResource(pokemonTypeUrl + pokemonSpecies.name + "/"));
+    }
+
+    injectHTML(pokemon);
 }
 
 function getRandomNumber(min, max) {
@@ -147,4 +217,12 @@ function injectHTML(pokemon){
                 <div class="member-img"><img src=${pokemon[5].sprites.front_default} alt="" id="img-six"></div>
                 <div class="pokemon-name" id="name-six">${capitalizeFirstLetter(pokemon[5].name)}</div>
             </div>`
+}
+
+function checkPokedex(){
+    if (pokedex === undefined){
+        console.log("POKEDEX DATA IS UNDEFINED");
+        return false;
+    }
+    return true;
 }
