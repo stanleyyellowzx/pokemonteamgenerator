@@ -12,15 +12,6 @@ const numToString = {
 };
 let pokedex;
 
-async function assignPokedex(){
-    let tempPokedex;
-    do{
-        tempPokedex = await fetchPokedex();
-    }while (tempPokedex === undefined);
-    
-    pokedex = tempPokedex;
-}
-
 async function fetchPokedex(){
     try{
         const response = await fetch("https://pokeapi.co/api/v2/pokedex/2/");
@@ -29,8 +20,7 @@ async function fetchPokedex(){
             throw new Error("Could not fetch resource");
         }
 
-        const data = await response.json();
-        return data;
+        pokedex = await response.json();
     }
     catch(error){
         console.error(error);
