@@ -18,12 +18,10 @@ h1{
 #regions{
     width: 1200px;
     height: 900px;
-    position: absolute;
-    top: 52%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .region-box{
@@ -72,4 +70,17 @@ h1{
 
 #paldea-box{
     background-color: pink;
+}
+
+#national-box{
+    width: 1200px; /* Set width to 400px */
+    height: 900px; /* Set height to 300px */
+    background-color: orange; /* Optional: add a background color */
+    margin: 0 auto; /* Center horizontally and add space above */
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+    text-decoration: none; /* Remove underline */
+    font-family: Arial, sans-serif;
+    font-size: 32px;
 }

@@ -12,16 +12,11 @@ const numToString = {
     5 : "six"
 };
 const regionToNum = {
-    national:1,
     kanto:2,
     johto:7,
     hoenn:4,
     sinnoh:6,
     unova:9,
-    kalos:12,
-    kalos_central:12,
-    kalos_coastal:13,
-    kalos_mountain:14,
     alola:21,
     galar:27,
     paldea:31
@@ -60,7 +55,6 @@ async function fetchResource(url){
 }
 
 async function generateTeam(){
-    console.log(pokedex);
     let starterValue = Number(starterPokemon.value);
     let legendaryValue = legendaryPokemon.checked;
     
